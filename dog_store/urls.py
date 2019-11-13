@@ -15,14 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import app.views
+from app.views import (
+    Home,
+    DogProductDetail,
+    PurchaseDogProduct,
+    PurchaseDetail,
+    NewDogTag,
+    DogTagList,
+)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", app.views.home, name="home"),
-    path("dog-product/<dog_product_id>", app.views.dog_product_detail, name="dog_product_detail"),
-    path("dog-product/<dog_product_id>/purchase", app.views.purchase_dog_product, name="purchase_dog_product"),
-    path("purchase/<purchase_id>", app.views.purchase_detail, name="purchase_detail"),
-    path("dogtag/new", app.views.new_dog_tag, name="new_dog_tag"),
-    path("dogtag", app.views.dog_tag_list, name="dog_tag_list")
+    path("admin/", admin.site.urls),
+    path("", Home.as_view(), name="home"),
+    path(
+        "dog-product/<dog_product_id>",
+        DogProductDetail.as_view(),
+        name="dog_product_detail",
+    ),
+    path(
+        "dog-product/<dog_product_id>/purchase",
+        PurchaseDogProduct.as_view(),
+        name="purchase_dog_product",
+    ),
+    path("purchase/<purchase_id>", PurchaseDetail.as_view(), name="purchase_detail"),
+    path("dogtag/new", NewDogTag.as_view(), name="new_dog_tag"),
+    path("dogtag", DogTagList.as_view(), name="dog_tag_list"),
 ]
